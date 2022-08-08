@@ -1,11 +1,11 @@
 import fs from 'fs/promises'
 import globby from 'globby'
-import tsconfig, { option } from 'tsconfig-utils'
 import yaml from 'js-yaml'
+import { load } from 'tsconfig-utils'
 import { dirname, extname, resolve } from 'path'
 
 declare module 'tsconfig-utils' {
-  interface tsconfig {
+  interface TsConfig {
     atsc?: Config
   }
 }
@@ -15,10 +15,12 @@ export interface Config {
 }
 
 export async function build(cwd: string, args: string[]) {
-  const filename = option(args, ['-p', '--project'], () => 'tsconfig.json', true)
-  const config = await tsconfig(resolve(cwd, filename))
-  const { outDir, rootDir } = config.compilerOptions
-  if (!outDir) return
+  const config = await load(cwd, args)
+  const outDir = config.get('outDir')
+  const rootDir = config.get('rootDir')
+  const noEmit = config.get('noEmit')
+  const emitDeclarationOnly = config.get('emitDeclarationOnly')
+  if (!outDir || !rootDir || noEmit || emitDeclarationOnly) return
 
   const loaders = config.atsc?.loaders || ['.yaml', '.yml']
 
