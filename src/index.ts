@@ -14,7 +14,7 @@ export interface Config {
   loaders?: string[]
 }
 
-export async function build(cwd: string, args: string[]) {
+export async function build(cwd: string, args: string[] = []) {
   const config = await load(cwd, args)
   const outDir = config.get('outDir')
   const rootDir = config.get('rootDir')
