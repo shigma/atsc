@@ -7,6 +7,6 @@ const cwd = process.cwd()
 const args = process.argv.slice(2)
 
 Promise.all([
-  build(cwd, args),
   compile(args),
-])
+  build(cwd, args),
+]).then(([code]) => process.exit(code))
