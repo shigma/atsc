@@ -39,7 +39,7 @@ export async function build(cwd: string, args: string[] = []) {
       await fs.copyFile(src, dest)
     } else if (['.yaml', '.yml'].includes(ext)) {
       const data = yaml.load(await fs.readFile(src, 'utf8'))
-      await fs.writeFile(dest.slice(0, -ext.length) + '.json', JSON.stringify(data))
+      await fs.writeFile(dest.slice(0, -ext.length) + '.json', JSON.stringify(data) || '')
     }
   }))
 }
