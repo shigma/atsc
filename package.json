@@ -2,10 +2,13 @@
   "name": "atsc",
   "description": "Augment tsc with non-typescript files support",
   "version": "1.2.2",
+  "type": "module",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "bin": "lib/bin.js",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "engines": {
     "node": "^14.18.0 || >=16.0.0"

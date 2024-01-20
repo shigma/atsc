@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { build } from '.'
+import { build } from './index.js'
 import { compile } from 'tsconfig-utils'
 
 const cwd = process.cwd()
